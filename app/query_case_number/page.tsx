@@ -2,11 +2,17 @@
 import { useState } from "react";
 import React from "react";
 import { FaArrowLeft, FaRegListAlt } from "react-icons/fa";
+import { useRouter } from "next/navigation"; // 👈 esto es para el router en app/
+
+
 
 export default function QueryCaseNumber() {
+
   const [numero, setNumero] = useState("");
   const [mostrarError, setMostrarError] = useState(false);
   const [modoActivo, setModoActivo] = useState(true);
+
+  const router = useRouter();
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -17,7 +23,12 @@ export default function QueryCaseNumber() {
     setMostrarError(false);
     // Aquí puedes redirigir o ejecutar la lógica
     console.log({ numero, modoActivo });
+      // Redirigir a la vista con los datos como query string
+    router.push(
+      `/viewNumberCase?numero=${numero}&soloActivos=${modoActivo}&pagina=1`
+    );
   };
+  
 
   return (
     <main className="min-h-screen bg-[#003057] text-white px-4 py-10 flex flex-col items-center">
