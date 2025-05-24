@@ -1,7 +1,7 @@
-'use client';
+"use client";
 
-import { useState } from 'react';
-import { useActuaciones } from '@/api/hooks/useActions';
+import { useParams } from "next/navigation";
+import { useActuaciones } from "@/api/hooks/useActions";
 
 const clasificacionTexto: Record<number, string> = {
   4: 'Alta',
@@ -18,10 +18,10 @@ const clasificacionColor: Record<number, string> = {
 };
 
 export default function Componente() {
-  //const numero = '198167821';
-  const [radicado, setRadicado] = useState('');
-  const [buscar, setBuscar] = useState<string | null>(null);
-  const { data: actuaciones, isLoading, isError } = useActuaciones(buscar ?? '');
+  const params = useParams();
+  const idProceso = params.id as string;
+
+  const { data: actuaciones, isLoading, isError } = useActuaciones(idProceso);
 
   const actuacionesOrdenadas = actuaciones
     ? [...actuaciones].sort((a, b) => Number(b.clasificacion) - Number(a.clasificacion))
@@ -29,23 +29,7 @@ export default function Componente() {
 
   return (
     <main className="min-h-screen bg-[#003057] text-white px-4 py-10 flex flex-col items-center">
-      <h1 className="text-3xl font-bold mb-6">Consulta de Procesos Judiciales</h1>
-
-      <div className="flex gap-4 mb-8 w-full max-w-2xl">
-        <input
-          type="text"
-          placeholder="Ingrese número de radicado"
-          className="px-4 py-2 rounded-lg text-black w-full"
-          value={radicado}
-          onChange={(e) => setRadicado(e.target.value)}
-        />
-        <button
-          className="bg-white text-[#003057] font-semibold px-6 py-2 rounded-lg hover:bg-gray-200 transition"
-          onClick={() => setBuscar(radicado)}
-        >
-          Buscar
-        </button>
-      </div>
+      <h1 className="text-3xl font-bold mb-6">Actuaciones del Proceso</h1>
 
       {isLoading && <p className="text-lg">Cargando...</p>}
       {isError && <p className="text-red-400">Error al cargar los datos</p>}
@@ -71,7 +55,7 @@ export default function Componente() {
           })}
         </ul>
       ) : (
-        buscar && !isLoading && <p className="text-lg mt-4">No hay actuaciones para este radicado.</p>
+        !isLoading && <p className="text-lg mt-4">No hay actuaciones para este radicado.</p>
       )}
     </main>
   );
