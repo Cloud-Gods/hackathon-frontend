@@ -3,7 +3,6 @@ import { useState } from "react";
 import React from "react";
 import Link from "next/link";
 import { FaArrowLeft, FaRegListAlt } from "react-icons/fa";
-<<<<<<< HEAD
 import ConsultaTabla from "@/components/query-table";
 
 // Define la interfaz de 'Parte'
@@ -21,11 +20,6 @@ interface Proceso {
   juzgado: string;
   partes: Parte[];
 }
-=======
-import { useRouter } from "next/navigation"; // 👈 esto es para el router en app/
-
-
->>>>>>> 665b2b4421fe9d71461505079d43693e7750981f
 
 export default function QueryCaseNumber() {
 
@@ -35,8 +29,6 @@ export default function QueryCaseNumber() {
   const [datosDeProcesos, setDatosDeProcesos] = useState<Proceso[]>([]); // Aquí se especifica el tipo 'Proceso[]'
   const [consultaRealizada, setConsultaRealizada] = useState(false);
 
-  const router = useRouter();
-
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (numero.length !== 23) {
@@ -45,7 +37,6 @@ export default function QueryCaseNumber() {
     }
 
     setMostrarError(false);
-<<<<<<< HEAD
     setConsultaRealizada(true);
 
     // Simulación de resultados: dejar vacío para probar el mensaje
@@ -81,14 +72,6 @@ export default function QueryCaseNumber() {
       const seccion = document.getElementById("resultado-consulta");
       seccion?.scrollIntoView({ behavior: "smooth" });
     }, 200);
-=======
-    // Aquí puedes redirigir o ejecutar la lógica
-    console.log({ numero, modoActivo });
-      // Redirigir a la vista con los datos como query string
-    router.push(
-      `/viewNumberCase?numero=${numero}&soloActivos=${modoActivo}&pagina=1`
-    );
->>>>>>> 665b2b4421fe9d71461505079d43693e7750981f
   };
   
 
