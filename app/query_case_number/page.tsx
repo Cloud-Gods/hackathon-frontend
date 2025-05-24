@@ -2,6 +2,7 @@
 import { useState } from "react";
 import React from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { FaArrowLeft, FaRegListAlt } from "react-icons/fa";
 import ConsultaTabla from "@/components/query-table";
 
@@ -29,6 +30,8 @@ export default function QueryCaseNumber() {
   const [datosDeProcesos, setDatosDeProcesos] = useState<Proceso[]>([]); // Aquí se especifica el tipo 'Proceso[]'
   const [consultaRealizada, setConsultaRealizada] = useState(false);
 
+  const router = useRouter();
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (numero.length !== 23) {
@@ -38,6 +41,10 @@ export default function QueryCaseNumber() {
 
     setMostrarError(false);
     setConsultaRealizada(true);
+
+    router.push(
+      `/viewNumberCase?numero=${numero}&soloActivos=${modoActivo}&pagina=1`
+    );
 
     // Simulación de resultados: dejar vacío para probar el mensaje
     const datosSimulados: Proceso[] = [
