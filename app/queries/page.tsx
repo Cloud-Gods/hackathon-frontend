@@ -7,6 +7,10 @@ import Particles from "@/components/cover-particles";
 
 
 export default function ConsultPage() {
+  
+
+
+
   return (
     <>
     <TransitionPage />
@@ -21,7 +25,7 @@ export default function ConsultPage() {
         Selecciona una opción de consulta
       </p>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 w-full max-w-3xl">
+      <div className="relative grid grid-cols-1 md:grid-cols-2 gap-6 w-full max-w-3xl">
         {/* Número de radicación */}
         <Link href="/query_case_number" className="block">
           <div className="cursor-pointer bg-white text-[#003057] rounded-2xl shadow-md p-6 flex items-center gap-4 hover:shadow-lg transition">
