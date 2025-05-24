@@ -1,11 +1,15 @@
 
 import React from 'react';
 import Link from 'next/link';
+import CoverParticles from '@/components/cover-particles';
+import TransitionPage from '@/components/transition-page';
 
 
 export default function Home() {
   return (
     <main className="min-h-screen bg-[#003057] text-white flex flex-col items-center justify-center px-4">
+      <TransitionPage />
+      <CoverParticles />
       <h1 className="text-4xl font-bold text-center mb-6">
         Monitoreo de Procesos Judiciales
       </h1>
