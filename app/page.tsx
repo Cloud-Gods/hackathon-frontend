@@ -17,7 +17,7 @@ export default function Home() {
         Automatiza la consulta, seguimiento y análisis de procesos judiciales con IA Generativa.
       </p>
      <Link
-        href="/consults"
+        href="/querys"
         className="bg-[#00B0F0] hover:bg-[#009cd1] text-white font-semibold py-3 px-6 rounded-lg transition-colors"
       >
         Consulta de Procesos Nacional Unificada
