@@ -4,83 +4,38 @@ import React from "react";
 import Link from "next/link"; 
 import { useRouter } from "next/navigation";
 import { FaArrowLeft, FaRegListAlt } from "react-icons/fa";
-import ConsultaTabla from "@/components/query-table";
-
-// Define la interfaz de 'Parte'
-interface Parte {
-  tipo: string;
-  nombre: string;
-}
-
-// Define la interfaz de 'Proceso'
-interface Proceso {
-  id: string;
-  radicado: string;
-  fechaRadicacion: string;
-  fechaUltimaActuacion: string;
-  juzgado: string;
-  partes: Parte[];
-}
+import { useSearchParams } from "next/navigation";
+import { useNumberCase }  from "@/api/hooks/useNumberCase";
+import { getNumberCaseParams } from "@/api/types/numberCase";
 
 export default function QueryCaseNumber() {
 
-  const [numero, setNumero] = useState("");
-  const [mostrarError, setMostrarError] = useState(false);
+  const [numero, setNumero] = useState('');
   const [modoActivo, setModoActivo] = useState(true);
-  const [datosDeProcesos, setDatosDeProcesos] = useState<Proceso[]>([]); // Aquí se especifica el tipo 'Proceso[]'
-  const [consultaRealizada, setConsultaRealizada] = useState(false);
+  const [mostrarError, setMostrarError] = useState(false);
 
   const router = useRouter();
+  const params = useSearchParams();
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const { data, isLoading, error } = useNumberCase(getNumberCaseParams(params));
+
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
     if (numero.length !== 23) {
       setMostrarError(true);
       return;
     }
-
     setMostrarError(false);
-    setConsultaRealizada(true);
+    if (isLoading) return <div className="p-10 text-center text-gray-600">Cargando...</div>;
+    if (error) return <div className="p-10 text-red-600">Ocurrió un error al consultar.</div>;
+    if (!data || !data.procesos?.length)
+      return <div className="p-10 text-gray-600">No se encontraron procesos.</div>;
 
-    // router.push(
-    //   `/viewNumberCase?numero=${numero}&soloActivos=${modoActivo}&pagina=1`
-    // );
 
-    // Simulación de resultados: dejar vacío para probar el mensaje
-    const datosSimulados: Proceso[] = [
-    {
-        id: "1",
-        radicado: "11001234500020230012345",
-        fechaRadicacion: "2023-04-12",
-        fechaUltimaActuacion: "2024-10-05",
-        juzgado: "Juzgado 10 Civil del Circuito de Bogotá - Cundinamarca",
-        partes: [
-        { tipo: "Demandante", nombre: "Juan Pérez" },
-        { tipo: "Demandado", nombre: "Empresa XYZ S.A.S" },
-        ],
-    },
-    {
-        id: "2",
-        radicado: "11001234500020220067890",
-        fechaRadicacion: "2022-01-22",
-        fechaUltimaActuacion: "2023-12-01",
-        juzgado: "Juzgado 4 Laboral del Circuito de Medellín - Antioquia",
-        partes: [
-        { tipo: "Demandante", nombre: "María Rodríguez" },
-        { tipo: "Demandado", nombre: "Compañía ABC Ltda." },
-        ],
-    },
-    ];
- // Aquí defines el tipo de datos correctamente
-
-    setDatosDeProcesos(datosSimulados);
-
-    setTimeout(() => {
-      const seccion = document.getElementById("resultado-consulta");
-      seccion?.scrollIntoView({ behavior: "smooth" });
-    }, 200);
-  };
-  
+    // aquí puedes usar `numero`, `modoActivo`, `router.push`, etc.
+    console.log('Número:', numero);
+  };  
 
   return (
     
@@ -140,10 +95,8 @@ export default function QueryCaseNumber() {
 
               <div className="flex gap-4 justify-center mt-2">
                 <button
-                  type="submit"   
-                  onClick={() => {
-                    router.push('/viewIAActions'); // 👈 reemplaza con tu ruta
-                  }}             
+                  type="submit"  
+                  onClick={() => router.push(`/viewNumberCase/${numero}`)}                      
                   className="bg-[#007BFF] text-white px-6 py-2 rounded-lg font-semibold hover:bg-[#0000CD] transition"
                 >
                   CONSULTAR
@@ -158,24 +111,6 @@ export default function QueryCaseNumber() {
             </form>
           </div>
         </div>
-      </div>
-
-      {/* Sección de resultados */}
-      <div id="resultado-consulta" className="w-full max-w-5xl mt-32 px-4">
-        {consultaRealizada && datosDeProcesos.length === 0 && (
-          <div className="bg-white text-[#003057] p-6 rounded-2xl shadow-xl text-center">
-            <h2 className="text-xl font-semibold mb-2">No se encontraron resultados</h2>
-            <p className="text-sm text-gray-600">
-              Verifica que el número de radicación esté correcto o intenta de nuevo.
-            </p>
-          </div>
-        )}
-
-        {datosDeProcesos.length > 0 && (
-            <div>
-          <ConsultaTabla procesos={datosDeProcesos} />
-          </div>
-        )}
       </div>
     </main>
   );
