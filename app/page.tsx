@@ -1,6 +1,7 @@
 
 import React from 'react';
-import Particles from 'react-tsparticles';
+import Link from 'next/link';
+
 
 export default function Home() {
   return (
@@ -11,12 +12,13 @@ export default function Home() {
       <p className="text-lg text-center max-w-xl mb-8">
         Automatiza la consulta, seguimiento y análisis de procesos judiciales con IA Generativa.
       </p>
-      <a
-        href="#consulta"
+     <Link
+        href="/consults"
         className="bg-[#00B0F0] hover:bg-[#009cd1] text-white font-semibold py-3 px-6 rounded-lg transition-colors"
       >
         Consulta de Procesos Nacional Unificada
-      </a>
+      </Link>
+
     </main>
   );
 }
