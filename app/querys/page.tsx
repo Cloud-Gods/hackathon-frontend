@@ -1,6 +1,8 @@
+'use client';
 import { FaSearch, FaIdCard, FaRegListAlt } from "react-icons/fa";
 import Link from "next/link";
-import React from "react";
+import React, { use } from "react";
+
 
 import TransitionPage from "@/components/transition-page";
 import Particles from "@/components/cover-particles";
