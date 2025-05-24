@@ -2,9 +2,18 @@ import { FaSearch, FaIdCard, FaRegListAlt } from "react-icons/fa";
 import Link from "next/link";
 import React from "react";
 
+import TransitionPage from "@/components/transition-page";
+import Particles from "@/components/cover-particles";
+
+
 export default function ConsultPage() {
   return (
-    <main className="min-h-screen bg-[#003057] text-white px-4 py-10 flex flex-col items-center">
+    <>
+    <TransitionPage />
+    <Particles/>
+
+   
+    <div className="min-h-screen bg-[#003057] text-white px-4 py-10 flex flex-col items-center">
       <h1 className="text-3xl md:text-4xl font-bold text-center mb-2">
         Consulta de Procesos Nacional Unificada
       </h1>
@@ -60,6 +69,8 @@ export default function ConsultPage() {
           </div>
         </Link>
       </div>
-    </main>
+    </div>
+   
+    </>
   );
 }
