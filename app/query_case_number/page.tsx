@@ -1,7 +1,7 @@
 "use client";
 import { useState } from "react";
 import React from "react";
-import Link from "next/link";
+import Link from "next/link"; 
 import { useRouter } from "next/navigation";
 import { FaArrowLeft, FaRegListAlt } from "react-icons/fa";
 import ConsultaTabla from "@/components/query-table";
@@ -42,9 +42,9 @@ export default function QueryCaseNumber() {
     setMostrarError(false);
     setConsultaRealizada(true);
 
-    router.push(
-      `/viewNumberCase?numero=${numero}&soloActivos=${modoActivo}&pagina=1`
-    );
+    // router.push(
+    //   `/viewNumberCase?numero=${numero}&soloActivos=${modoActivo}&pagina=1`
+    // );
 
     // Simulación de resultados: dejar vacío para probar el mensaje
     const datosSimulados: Proceso[] = [
@@ -139,19 +139,16 @@ export default function QueryCaseNumber() {
 
               <div className="flex gap-4 justify-center mt-2">
                 <button
-                  type="submit"
+                  type="submit"   
+                  onClick={() => {
+                    router.push('/viewIAActions'); // 👈 reemplaza con tu ruta
+                  }}             
                   className="bg-[#007BFF] text-white px-6 py-2 rounded-lg font-semibold hover:bg-[#0000CD] transition"
                 >
                   CONSULTAR
                 </button>
                 <button
-                  type="button"
-                  onClick={() => {
-                    setNumero("");
-                    setMostrarError(false);
-                    setConsultaRealizada(false);
-                    setDatosDeProcesos([]);
-                  }}
+                  type="button"                  
                   className="bg-white text-[#003057] border border-[#003057] px-6 py-2 rounded-lg font-semibold hover:bg-gray-100 transition"
                 >
                   NUEVA CONSULTA
