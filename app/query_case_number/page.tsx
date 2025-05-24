@@ -38,6 +38,7 @@ export default function QueryCaseNumber() {
   };  
 
   return (
+    
     <main className="min-h-screen bg-[#003057] text-white px-4 py-10 flex flex-col items-center">
       <div className="w-full max-w-3xl">
         <Link href="/queries">

@@ -1,3 +1,6 @@
+
+'use client';
+
 import { FaSearch, FaIdCard, FaRegListAlt } from "react-icons/fa";
 import Link from "next/link";
 import React from "react";
@@ -8,9 +11,6 @@ import Particles from "@/components/cover-particles";
 
 export default function ConsultPage() {
   
-
-
-
   return (
     <>
     <TransitionPage />

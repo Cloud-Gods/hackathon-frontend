@@ -19,6 +19,7 @@ export default function ViewNumberCase() {
     return <div className="p-10 text-gray-600">No se encontraron procesos.</div>;
 
   return (
+    
     <main className="min-h-screen bg-gray-100 p-8">
       <h1 className="text-3xl font-bold mb-6 text-[#003057] text-center">
         Resultado de la Consulta
