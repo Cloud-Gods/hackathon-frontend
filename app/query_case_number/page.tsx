@@ -107,6 +107,7 @@ export default function QueryCaseNumber() {
                 >
                   NUEVA CONSULTA
                 </button>
+                
               </div>
             </form>
           </div>

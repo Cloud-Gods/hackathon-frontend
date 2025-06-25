@@ -6,7 +6,7 @@ export async function fetchNumberCase(params: NumberCaseType) {
   const query = new URLSearchParams(params as unknown as Record<string, string>).toString()
 
   const res = await fetch(
-    `${baseUrl}/GET/CaseNumber?${query}`
+    `${baseUrl}/procesos/by_llaveProceso/${query}`
   )
 
   if (!res.ok) throw new Error('Error al consultar número de radicación')

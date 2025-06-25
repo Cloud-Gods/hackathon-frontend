@@ -25,7 +25,7 @@ export default function ConsultaNombre() {
   };
 
   return (
-    <main className="min-h-screen bg-[#003057] text-white px-4 py-10 flex flex-col items-center">
+    <main className="min-h-screen bg-[#003057] text-white px-4 py-28 flex flex-col items-center">
       <div className="w-full max-w-3xl">
         <Link href="/queries">
           <button className="text-sm text-gray-300 flex items-center gap-2 mb-6 hover:text-white">

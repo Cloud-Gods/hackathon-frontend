@@ -17,7 +17,7 @@ export default function ConsultPage() {
     <Particles/>
 
    
-    <div className="min-h-screen bg-[#003057] text-white px-4 py-10 flex flex-col items-center">
+    <div className="min-h-screen bg-[#003057] text-white px-4 py-28 flex flex-col items-center">
       <h1 className="text-3xl md:text-4xl font-bold text-center mb-2">
         Consulta de Procesos Nacional Unificada
       </h1>
