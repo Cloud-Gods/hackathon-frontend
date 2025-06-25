@@ -2411,7 +2411,7 @@ form-data@^4.0.0:
     hasown "^2.0.2"
     mime-types "^2.1.12"
 
-framer-motion@^12.12.2:
+framer-motion@^12.19.1:
   version "12.19.1"
   resolved "https://registry.yarnpkg.com/framer-motion/-/framer-motion-12.19.1.tgz#1d078c04d2ef15bec180cd3573218fad1f4ee871"
   integrity sha512-nq9hwWAEKf4gzprbOZzKugLV5OVKF7zrNDY6UOVu+4D3ZgIkg8L9Jy6AMrpBM06fhbKJ6LEG6UY5+t7Eq6wNlg==
