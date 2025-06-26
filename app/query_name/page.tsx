@@ -18,6 +18,7 @@ export default function ConsultaNombre() {
       return;
     }
     setError(false);
+    router.push(`/viewIAActionsName/${nombre}`);
     // Aquí va la lógica de envío
     //alert(`Consulta enviada con nombre: ${nombre} (${tipoConsulta})`);
   };
@@ -70,9 +71,11 @@ export default function ConsultaNombre() {
               <label className="block font-medium mb-1">
                 <span className="text-red-600">*</span> Nombre(s), Apellido o Razón Social
               </label>
+
               <input
                 type="text"
                 value={nombre}
+                required
                 onChange={(e) => setNombre(e.target.value)}
                 placeholder="Ingrese el nombre o razón social"
                 className={`w-full border ${
@@ -92,7 +95,6 @@ export default function ConsultaNombre() {
             <div className="flex gap-4 justify-center mt-2">
               <button
                 type="submit"
-                onClick={() => router.push(`/viewIAActionsName/${nombre}`)}
                 className="bg-[#007BFF] text-white px-6 py-2 rounded-lg font-semibold hover:bg-[#0000CD] transition"
               >
                 CONSULTAR

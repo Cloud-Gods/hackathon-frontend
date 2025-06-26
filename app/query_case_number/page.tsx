@@ -5,9 +5,6 @@ import React from "react";
 import Link from "next/link"; 
 import { useRouter } from "next/navigation";
 import { FaArrowLeft, FaRegListAlt } from "react-icons/fa";
-import { useSearchParams } from "next/navigation";
-import { useNumberCase }  from "@/api/hooks/useNumberCase";
-import { getNumberCaseParams } from "@/api/types/numberCase";
 
 export default function QueryCaseNumber() {
 
@@ -16,31 +13,23 @@ export default function QueryCaseNumber() {
   const [mostrarError, setMostrarError] = useState(false);
 
   const router = useRouter();
-  const params = useSearchParams();
-
-  const { data, isLoading, error } = useNumberCase(getNumberCaseParams(params));
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
 
-    if (numero.length !== 23) {
+    if (numero.length !== 22 && numero.length !== 0) {
       setMostrarError(true);
       return;
     }
     setMostrarError(false);
-    if (isLoading) return <div className="p-10 text-center text-gray-600">Cargando...</div>;
-    if (error) return <div className="p-10 text-red-600">Ocurrió un error al consultar.</div>;
-    if (!data || !data.procesos?.length)
-      return <div className="p-10 text-gray-600">No se encontraron procesos.</div>;
+    if (numero.length === 22) {
+      router.push(`/viewNumberCase/${numero}`);
+    }
+  };
 
 
-    // aquí puedes usar `numero`, `modoActivo`, `router.push`, etc.
-    console.log('Número:', numero);
-  };  
-
-  return (
-    
+  return (    
     <main className="min-h-screen bg-[#003057] text-white px-4 py-28 flex flex-col items-center">
       <div className="w-full max-w-3xl">
         <Link href="/queries">
@@ -81,7 +70,7 @@ export default function QueryCaseNumber() {
             <form onSubmit={handleSubmit} className="w-full flex flex-col gap-4">
               <input
                 type="text"
-                maxLength={23}
+                maxLength={22}
                 value={numero}
                 required
                 onChange={(e) => setNumero(e.target.value)}
@@ -92,19 +81,19 @@ export default function QueryCaseNumber() {
                 Consulta con este número de radicado: 5001418900320250000000
               </p>
               <div className="text-sm text-right text-gray-500">
-                {numero.length} / 23
+                {numero.length} / 22
               </div>
               {mostrarError && (
                 <p className="text-red-600 text-sm font-medium" aria-required="true">
-                  Debes ingresar exactamente 23 dígitos.
+                  Debes ingresar exactamente 22 dígitos.
                 </p>
               )}
 
               <div className="flex gap-4 justify-center mt-2">
                 <button
-                  type="submit"  
-                  onClick={() => router.push(`/viewNumberCase/${numero}`)}                      
-                  className="bg-[#007BFF] text-white px-6 py-2 rounded-lg font-semibold hover:bg-[#0000CD] transition"
+                  type="submit"                 
+                  className="bg-[#007BFF] text-white px-6 py-2 rounded-lg font-semibold hover:bg-[#0000CD] transition" 
+                 
                 >
                   CONSULTAR
                 </button>

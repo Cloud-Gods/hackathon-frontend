@@ -6,7 +6,5 @@ export const getResumenPorSujeto = async (nombre: string) => {
   if (!response.ok) {
     throw new Error("Error al obtener resumen del sujeto");
   }
-
-  console.log("Response from API:", response);
   return await response.json();
 };

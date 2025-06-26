@@ -19,8 +19,6 @@ export const getActuaciones = async (numero: string): Promise<ResponseActionsIAT
   if (response.status === 204) {
     return [];
   }
-  console.log('Response from API:', response);
-
   return await response.json();
 };
 
