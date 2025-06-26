@@ -1,4 +1,4 @@
-import { Linkedin, Crop, Pencil, Computer, Book, Rocket, Github } from "lucide-react";
+import { Crop, Pencil, Computer, Book, Rocket, Github } from "lucide-react";
 import NavbarImageIcon from "@/components/navbar-image-icon";
 
 

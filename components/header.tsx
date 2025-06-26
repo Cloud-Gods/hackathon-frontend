@@ -10,14 +10,15 @@ const Header = () => {
           
         <div className="container justify-between max-w-6xl mx-auto md:flex">
           <Link href="/">
-            <h1 className="my-3 text-2xl font-bold text-center md:text-left">
-              ALEJANDRO {" "}
+            <h1 className="my-3 text-2xl font-bold text-center md:text-left  text-green-300">
+              CLOUD {" "}
               <span className="text-secondary">
-                BECERRA ACEVEDO
+                GODS
               </span>
-            </h1>                   
+            </h1> 
+                              
           </Link>
-          <div className="flex items-center justify-center gap-7">
+          <div className="flex items-center justify-center gap-7 text-gray-300">
             {socialNetworks.map(({logo,src,id}) => (
               <Link key={id}
                 href={src}

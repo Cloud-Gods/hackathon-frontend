@@ -1,62 +1,69 @@
-'use client';
+"use client"
 
-import { useParams } from "next/navigation";
-import { useActuaciones } from "@/api/hooks/useActions";
+import { useParams } from "next/navigation"
+import { useActuaciones } from "@/api/hooks/useActions"
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card"
 
-const clasificacionTexto: Record<number, string> = {
-  4: 'Alta',
-  3: 'Media',
-  2: 'Baja',
-  1: 'Nula',
-};
-
-const clasificacionColor: Record<number, string> = {
-  4: 'bg-red-500',
-  3: 'bg-yellow-500',
-  2: 'bg-blue-400',
-  1: 'bg-gray-400',
-};
+const clasificacionColor: Record<string, string> = {
+  Alta: "border-red-500",
+  Media: "border-yellow-500",
+  Baja: "border-blue-400",
+  Nula: "border-gray-400",
+}
 
 export default function Componente() {
-  const params = useParams();
-  const idProceso = params.id as string;
+  const params = useParams()
+  const llaveProceso = params.id as string
 
-  const { data: actuaciones, isLoading, isError } = useActuaciones(idProceso);
+  const { data: actuaciones, isLoading, isError } = useActuaciones(llaveProceso)
 
   const actuacionesOrdenadas = actuaciones
-    ? [...actuaciones].sort((a, b) => Number(b.clasificacion) - Number(a.clasificacion))
-    : [];
+    ? [...actuaciones].sort((a, b) => {
+        const orden: Record<string, number> = {
+          Alta: 4,
+          Media: 3,
+          Baja: 2,
+          Nula: 1,
+        }
+        return orden[b.clasificacion] - orden[a.clasificacion]
+      })
+    : []
 
   return (
-    <main className="min-h-screen bg-[#003057] text-white px-4 py-10 flex flex-col items-center">
+    <main className="min-h-screen bg-[#003057] text-white px-4 py-28 flex flex-col items-center">
       <h1 className="text-3xl font-bold mb-6">Actuaciones del Proceso</h1>
 
       {isLoading && <p className="text-lg">Cargando...</p>}
       {isError && <p className="text-red-400">Error al cargar los datos</p>}
 
       {actuacionesOrdenadas.length > 0 ? (
-        <ul className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 w-full max-w-6xl">
-          {actuacionesOrdenadas.map((a) => {
-            const clasificacionNum = Number(a.clasificacion);
-            return (
-              <li
-                key={a.actuacion}
-                className={`p-4 rounded-xl shadow-lg text-[#003057] bg-white border-l-8 ${clasificacionColor[clasificacionNum]}`}
-              >
-                <h2 className="font-bold text-lg mb-2">
-                  Actuación #{a.actuacion}
-                </h2>
-                <p className="mb-2">{a.resumen}</p>
-                <p className="font-semibold">
-                  Clasificación: {clasificacionTexto[clasificacionNum]}
-                </p>
-              </li>
-            );
-          })}
-        </ul>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 w-full max-w-6xl">
+          {actuacionesOrdenadas.map((a) => (
+            <Card
+              key={a.actuacion}
+              className={`text-[#003057] border-l-8 ${clasificacionColor[a.clasificacion] || "border-gray-300"}`}
+            >
+              <CardHeader>
+                <CardTitle>Actuación #{a.actuacion}</CardTitle>
+                <CardDescription className="text-sm">
+                  Clasificación: <strong>{a.clasificacion}</strong>
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <p className="text-sm">{a.resumen}</p>
+              </CardContent>
+            </Card>
+          ))}
+        </div>
       ) : (
         !isLoading && <p className="text-lg mt-4">No hay actuaciones para este radicado.</p>
       )}
     </main>
-  );
+  )
 }

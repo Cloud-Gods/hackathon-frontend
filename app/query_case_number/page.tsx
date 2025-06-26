@@ -23,6 +23,7 @@ export default function QueryCaseNumber() {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
+
     if (numero.length !== 23) {
       setMostrarError(true);
       return;
@@ -40,7 +41,7 @@ export default function QueryCaseNumber() {
 
   return (
     
-    <main className="min-h-screen bg-[#003057] text-white px-4 py-10 flex flex-col items-center">
+    <main className="min-h-screen bg-[#003057] text-white px-4 py-28 flex flex-col items-center">
       <div className="w-full max-w-3xl">
         <Link href="/queries">
           <button className="text-sm text-gray-300 flex items-center gap-2 mb-6 hover:text-white">
@@ -56,6 +57,7 @@ export default function QueryCaseNumber() {
               Número de Radicación
             </h1>
           </div>
+          
 
           <div className="bg-white text-[#003057] mt-10 p-6 rounded-2xl shadow-xl w-full max-w-xl flex flex-col items-center gap-6">
             {/* Switch */}
@@ -81,15 +83,19 @@ export default function QueryCaseNumber() {
                 type="text"
                 maxLength={23}
                 value={numero}
+                required
                 onChange={(e) => setNumero(e.target.value)}
                 placeholder="Ingrese los 23 dígitos del número de Radicación"
                 className="w-full border border-gray-300 rounded-md px-4 py-3 text-[#003057] text-sm placeholder-gray-400"
               />
+              <p className="text-sm text-gray-500">
+                Consulta con este número de radicado: 5001418900320250000000
+              </p>
               <div className="text-sm text-right text-gray-500">
                 {numero.length} / 23
               </div>
               {mostrarError && (
-                <p className="text-red-600 text-sm font-medium">
+                <p className="text-red-600 text-sm font-medium" aria-required="true">
                   Debes ingresar exactamente 23 dígitos.
                 </p>
               )}

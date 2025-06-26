@@ -9,3 +9,20 @@ export type Proceso = {
   sujetosProcesales: string;
   esPrivado: boolean;
 };
+
+export interface PersonaParticipante {
+  rol: string;
+  nombre: string;
+}
+
+export interface ProcesoLocal {
+  idProceso: number;
+  llaveProceso: string;
+  despacho: string;
+  departamento: string;
+  fechaProceso: string;
+  fechaUltimaActuacion: string;
+  sujetosProcesales: string;
+  cantFilas?: PersonaParticipante[];
+}
+  // otras

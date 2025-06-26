@@ -1,8 +1,8 @@
 "use client"
 
 import { useParams, useRouter } from "next/navigation"
-import { useNumberCase } from "@/api/hooks/useNumberCase"
-import { getNumberCaseParams } from "@/api/types/numberCase"
+import { useNumberCaseName } from "@/api/hooks/useNumberCaseName"
+import { getNumberCaseParams } from "@/api/types/numberCaseName"
 import { ProcesoLocal } from "@/api/types/processType"
 import {
   Card,
@@ -16,10 +16,11 @@ import { Button } from "@/components/ui/button"
 export default function ViewNumberCase() {
   const params = useParams()
   const router = useRouter()
-  const numero = params.id as string
+  const name = params.name as string
 
-  const searchParams = new URLSearchParams({ numero })
-  const { data, isLoading, error } = useNumberCase(getNumberCaseParams(searchParams))
+  const searchParams = new URLSearchParams({ name })
+
+  const { data, isLoading, error } = useNumberCaseName(getNumberCaseParams(searchParams))
 
   if (isLoading)
     return <div className="p-10 text-center text-gray-600">Cargando...</div>
@@ -30,13 +31,13 @@ export default function ViewNumberCase() {
 
   return (
     <main className="min-h-screen bg-[#003057] text-white px-4 py-28 flex flex-col items-center">
-      <h1 className="text-3xl font-bold mb-6  text-white text-center">
+      <h1 className="text-3xl font-bold mb-6 text-white text-center">
         Resultado de la Consulta
       </h1>
 
       <div className="grid gap-6 max-w-4xl mx-auto">
         {data.map((proceso: ProcesoLocal) => (
-          <Card key={proceso.idProceso} className="border border-gray-500 shadow-sm">
+          <Card key={proceso.idProceso} className="border border-gray-200 shadow-sm">
             <CardHeader>
               <CardTitle className="text-[#003057]">
                 Radicación: {proceso.llaveProceso}

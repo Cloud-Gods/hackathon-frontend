@@ -1,7 +1,11 @@
-export interface SummaryType {
-    "nombre": string,
-    "tipoPersona": string,
-    "SoloActivos": boolean,
-    "codificacionDespacho": number,
-    "pagina": number
+export type SummaryType = {
+  total_casos: number
+  por_despacho: Record<string, number>
+  por_departamento: Record<string, number>
+  casos_recientes: {
+    llaveProceso: string
+    fechaUltimaActuacion: string
+    despacho: string
+    departamento: string
+  }[]
 }
