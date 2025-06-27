@@ -24,7 +24,8 @@ export default function QueryCaseNumber() {
     }
     setMostrarError(false);
     if (numero.length === 22) {
-      router.push(`/viewNumberCase/${numero}`);
+      localStorage.setItem("numero", numero);
+      router.push(`/viewNumberCase`);
     }
   };
 

@@ -18,7 +18,11 @@ export default function ConsultaNombre() {
       return;
     }
     setError(false);
-    router.push(`/viewIAActionsName/${nombre}`);
+    if (nombre.length > 0 ) {
+
+    localStorage.setItem("name", nombre);
+    router.push(`/viewIAActionsName`);
+    }
     // Aquí va la lógica de envío
     //alert(`Consulta enviada con nombre: ${nombre} (${tipoConsulta})`);
   };

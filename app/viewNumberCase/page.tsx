@@ -1,6 +1,7 @@
 "use client"
 
-import { useParams, useRouter } from "next/navigation"
+import { useEffect, useState } from "react"
+import { useRouter } from "next/navigation"
 import { useNumberCase } from "@/api/hooks/useNumberCase"
 import { getNumberCaseParams } from "@/api/types/numberCase"
 import { ProcesoLocal } from "@/api/types/processType"
@@ -14,12 +15,26 @@ import {
 import { Button } from "@/components/ui/button"
 
 export default function ViewNumberCase() {
-  const params = useParams()
   const router = useRouter()
-  const numero = params.id as string
 
-  const searchParams = new URLSearchParams({ numero })
-  const { data, isLoading, error } = useNumberCase(getNumberCaseParams(searchParams))
+  const [numero, setNumero] = useState("")
+  const [searchParams, setSearchParams] = useState<URLSearchParams | null>(null)
+
+  useEffect(() => {
+    const stored = localStorage.getItem("numero")
+    if (stored) {
+      setNumero(stored)
+      setSearchParams(new URLSearchParams({ numero: stored }))
+    }
+  }, [])
+
+  const { data, isLoading, error } = useNumberCase(
+    searchParams ? getNumberCaseParams(searchParams) : { numero: "", Activos: "false" }
+  )
+
+  if (!numero) {
+    return <div className="p-10 text-gray-500">Esperando parámetro...</div>
+  }
 
   if (isLoading)
     return <div className="p-10 text-center text-gray-600">Cargando...</div>
@@ -30,7 +45,7 @@ export default function ViewNumberCase() {
 
   return (
     <main className="min-h-screen bg-[#003057] text-white px-4 py-28 flex flex-col items-center">
-      <h1 className="text-3xl font-bold mb-6  text-white text-center">
+      <h1 className="text-3xl font-bold mb-6 text-white text-center">
         Resultado de la Consulta
       </h1>
 
@@ -55,7 +70,10 @@ export default function ViewNumberCase() {
               <Button
                 variant="default"
                 className="bg-[#008BFF] hover:bg-[#0000CD]"
-                onClick={() => router.push(`/viewIAActions/${proceso.llaveProceso}`)}
+                onClick={() => {
+                  localStorage.setItem("llaveProceso", proceso.llaveProceso);
+                  router.push(`/viewIAActions`);
+                }}
               >
                 Ver Actuaciones
               </Button>

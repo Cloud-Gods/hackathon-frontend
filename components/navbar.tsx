@@ -52,7 +52,8 @@ const Navbar = () => {
                 e.preventDefault();
                 if (nombre.trim() === "") return; // el navegador ya mostrará el tooltip
                 setShowPopup(false);
-                router.push(`/statistics/${nombre}`);
+                localStorage.setItem("nameStatistics", nombre);
+                router.push(`/statistics`);
               }}
             >
               <input

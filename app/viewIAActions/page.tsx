@@ -1,7 +1,7 @@
 "use client"
 
-import { useParams } from "next/navigation"
 import { useActuaciones } from "@/api/hooks/useActions"
+
 import {
   Card,
   CardContent,
@@ -18,10 +18,8 @@ const clasificacionColor: Record<string, string> = {
 }
 
 export default function Componente() {
-  const params = useParams()
-  const llaveProceso = params.id as string
-
-  const { data: actuaciones, isLoading, isError } = useActuaciones(llaveProceso)
+  const llaveProceso = typeof window !== "undefined" ? localStorage.getItem("llaveProceso") ?? "" : "";
+  const { data: actuaciones = [], isLoading, isError } = useActuaciones(llaveProceso);
 
   const actuacionesOrdenadas = actuaciones
     ? [...actuaciones].sort((a, b) => {
@@ -30,10 +28,10 @@ export default function Componente() {
           Media: 3,
           Baja: 2,
           Nula: 1,
-        }
-        return orden[b.clasificacion] - orden[a.clasificacion]
+        };
+        return orden[b.clasificacion] - orden[a.clasificacion];
       })
-    : []
+    : []; 
 
   return (
     <main className="min-h-screen bg-[#003057] text-white px-4 py-28 flex flex-col items-center">
