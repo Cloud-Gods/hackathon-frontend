@@ -26,7 +26,7 @@ export default function ViewNumberCase() {
     const stored = localStorage.getItem("name");
     if (stored) {
       setNumero(stored);
-      setSearchParams(new URLSearchParams({ numero: stored }));
+      setSearchParams(new URLSearchParams({ name: stored }));
     }
   }, []);
 
@@ -35,7 +35,6 @@ export default function ViewNumberCase() {
       ? getNumberCaseParams(searchParams)
       : { name: "", Activos: "false" }
   );
-
   if (!numero) {
     return <div className="p-10 text-gray-500">Esperando parámetro...</div>;
   }

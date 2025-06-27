@@ -8,8 +8,6 @@ export async function fetchNumberCaseName(params: NumberCaseNameType) {
     `${baseUrl}/procesos/by_nombre/${query.get('name')?.toString()}`,
   )
 
-  console.log('respuesta desde fetchNumberCaseName:', res)
-
   if (!res.ok) throw new Error('Error al consultar número de radicación')
   return await res.json()
 }
